@@ -2,4 +2,4 @@
 
 Prvi projekt, *8.5.2017*
 
-Poskusni prvi commit
+Poskusni prvi commit, in še en. 
