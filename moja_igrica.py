@@ -17,15 +17,35 @@ okno.title("2048")
 ozadje_okna=tk.Canvas(okno, bg="pink", height=50, width=50)
 ozadje_okna.place(relx=.35,rely=.5)
 
-class Okence:
-    def __init__(self,slika,i,j,cifra = 0):
-        self.cifra =cifra
- #       a=slika.width()//4
-#        b=slika.winfo_height()//4
-        a,b=5,5
-        slika.create_polygon(i*a,j*b,i*a+a,j*b,i*a+a,j*b+b,i*a,j*b+b,fill='red')
 
-s=Okence(ozadje_okna,0,0,cifra = 0)
+
+def levi_klik(event):
+    global matrika
+    matrika.matrika = skrci_matriko(matrika.matrika,1)
+    matrika.matrika = dodaj_dve(matrika.matrika)
+    matrika.osvezi()
+okno.bind('<Left>',levi_klik)
+
+def desni_klik(event):
+    global matrika
+    matrika.matrika = skrci_matriko(matrika.matrika,2)
+    matrika.matrika = dodaj_dve(matrika.matrika)
+    matrika.osvezi()
+okno.bind('<Right>',desni_klik)
+
+def gor_klik(event):
+    global matrika
+    matrika.matrika = skrci_matriko(matrika.matrika,3)
+    matrika.matrika = dodaj_dve(matrika.matrika)
+    matrika.osvezi()
+okno.bind('<Up>',gor_klik)
+
+def dol_klik(event):
+    global matrika
+    matrika.matrika = skrci_matriko(matrika.matrika,4)
+    matrika.matrika = dodaj_dve(matrika.matrika)
+    matrika.osvezi()
+okno.bind('<Down>',dol_klik)
 
 class Matrika:
 
@@ -38,7 +58,10 @@ class Matrika:
         self.slika.delete('all')
         for i in range(4):
             for j in range(4):
-                self.slika.create_text(j*100+50,i*100+50)
+                self.slika.create_text(j*100+50,i*100+50,text=str(self.matrika[i][j]))
+
+    
+                
         
 def dodaj_dve(matrika):
     stevilo_nicel=0
@@ -105,10 +128,10 @@ def skrci_levo(s):
     return seznam + [0]*(len(s)-len(seznam)) 
 
 def skrci_desno(s):
-    return skrci_levo(s[::-1])
+    return skrci_levo(s[::-1])[::-1]
 
-matrika = Matrika([[2,5,4,1],[5,2,6,548],[5,8,9,84],[15,85,24,2]],okno)
+
+matrika = Matrika([[2,0,4,0],[2,2,2,0],[0,0,2,0],[4,0,2,2]],okno)
 matrika.osvezi()
 
 okno.mainloop()
-        
