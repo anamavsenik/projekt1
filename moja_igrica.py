@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 import random
 
 def dodaj_dve(matrika):
@@ -71,7 +71,7 @@ class Matrika:
 
     def __init__(self,okno):
         self.slika = tk.Canvas(okno, bg='white',height=400,width =400)
-        self.slika.place(relx=.35,rely=.5)
+        self.slika.place(relx=.01,rely=.15)
         self.nova_igra()
         okno.bind('<Left>',self.levi_klik)
         okno.bind('<Right>',self.desni_klik)
@@ -85,7 +85,7 @@ class Matrika:
                 self.narisi_polje(i,j)
                 
     def narisi_polje(self,i,j):
-        barve = ['lemon chiffon','beige','wheat','sandy brown', 'coral','tomato','orange red', 'red','pink','hot pink','deep pink']
+        barve = ['peach puff','hot pink','deep pink','medium orchid', 'dark violet','seashell4','bisque4','cornflower blue','deep sky blue', 'blue','cyan']
         stevilo = self.matrika[i][j]
         if stevilo==2:
             barva = barve[0]
@@ -180,17 +180,17 @@ class Matrika:
 okno = tk.Tk()
 
 gumbi= tk.Frame(okno)
-ime_igre = tk.Label(okno, text = '2048')
-ime_igre.place(relx=.01,rely=.01)
-sestevek_tock = tk.Label(okno, text ='sestevek: ')
+ime_igre = tk.Label(okno, text = '2048',font='arial 20')
+ime_igre.place(relx=.02,rely=.01)
+sestevek_tock = tk.Label(okno, text ='sestevek: ', font='arial 12')
 sestevek_tock.place(relx=.7,rely=.01)    
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
-gumb_nova_igra.place(relx=.32,rely=.09)
+gumb_nova_igra.place(relx=.02,rely=.09)
 gumb_najboljsi_rezultat = tk.Button(okno,text = 'Najboljsi rezultat')
 gumb_najboljsi_rezultat.place(relx=.7,rely=.09)
 okno.title("2048")
 
-
+okno.geometry('{}x{}'.format(410, 500))
 okno.mainloop()
         
