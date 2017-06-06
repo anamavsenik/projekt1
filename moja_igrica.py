@@ -1,5 +1,7 @@
-import Tkinter as tk
+import tkinter as tk
 import random
+
+stevec = 0
 
 def dodaj_dve(matrika):
     stevilo_nicel=0
@@ -49,12 +51,18 @@ def skrci_matriko(matrika,smer):
         return transponiraj(skrci_matriko(transponiraj(matrika),2))
 
 def skrci_levo_brez_nicel(s):
+    global stevec
+    global sestevek_tock
+
     if len(s)<=1:
         return s
     elif s[0]!=s[1]:
         return [s[0]] + skrci_levo_brez_nicel(s[1:])
     else:
-        return [2*s[0]] + skrci_levo_brez_nicel(s[2:])
+        res = 2*s[0]
+        stevec = stevec + res
+        sestevek_tock.config(text = "sestevek: {}".format(stevec))
+        return [res] + skrci_levo_brez_nicel(s[2:])
 
 def skrci_levo(s):
     seznam =[]
@@ -182,7 +190,7 @@ okno = tk.Tk()
 gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
 ime_igre.place(relx=.02,rely=.01)
-sestevek_tock = tk.Label(okno, text ='sestevek: ', font='arial 12')
+sestevek_tock = tk.Label(okno, text ='sestevek: {}'.format(stevec), font='arial 12')
 sestevek_tock.place(relx=.7,rely=.01)    
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
