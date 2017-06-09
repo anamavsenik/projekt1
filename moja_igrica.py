@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 import random
 
 stevec = 0
@@ -186,7 +186,6 @@ class Matrika:
         self.osvezi()      
           
 okno = tk.Tk()
-
 gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
 ime_igre.place(relx=.02,rely=.01)
