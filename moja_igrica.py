@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 import random
 
 stevec = 0
@@ -25,7 +25,7 @@ def dodaj_dve(matrika):
                 vrstica.append(matrika[i][j])
         nova_matrika.append(vrstica)
     return nova_matrika
-       
+
 def transponiraj(matrika):
     transponirana = []
     for i in range(4):
@@ -122,7 +122,13 @@ class Matrika:
             self.slika.create_text(j*100+50,i*100+50,text=str(stevilo),font='arial 20')
 
     def nova_igra(self):
+        global stevec
+        global sestevek_tock
+
         self.matrika = dodaj_dve([[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]])
+
+        stevec = 0
+        sestevek_tock.config(text = "sestevek: {}".format(stevec))
         self.osvezi()
         
     def levi_klik(self,event):
@@ -183,8 +189,10 @@ class Matrika:
                         stevilo_nicel+= 1
             if stevilo_nicel==0:
                 self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
-        self.osvezi()      
-          
+        self.osvezi()
+
+
+
 okno = tk.Tk()
 gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
@@ -194,8 +202,10 @@ sestevek_tock.place(relx=.7,rely=.01)
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
 gumb_nova_igra.place(relx=.02,rely=.09)
-gumb_najboljsi_rezultat = tk.Button(okno,text = 'Najboljsi rezultat')
-gumb_najboljsi_rezultat.place(relx=.7,rely=.09)
+gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ')
+gumb_najboljsi_rezultat.place(relx=.6,rely=.09)
+stanje = tk.Label(okno, text ='', font='arial 18')
+stanje.place(relx=.25 ,rely=.02)
 okno.title("2048")
 
 okno.geometry('{}x{}'.format(410, 500))
