@@ -68,7 +68,6 @@ def zapisi_rezultat():
     f = open('rezultati.txt', 'a')
     f.write(',' + str(stevec))
     f.close()
-    
 def preberi_najboljsi_rezultat():
     tabela = []
     with open('rezultati.txt', 'r') as f:
@@ -80,25 +79,26 @@ def preberi_najboljsi_rezultat():
         if max < tabela[i]:
             max = tabela[i]
     return str(max)
-
 def skrci_levo(s):
     seznam =[]
     for i in s:
         if i !=0:
             seznam.append(i)
     seznam = skrci_levo_brez_nicel(seznam)
-    return seznam + [0]*(len(s)-len(seznam))
+    return seznam + [0]*(len(s)-len(seznam)) 
 
-    
 def skrci_desno(s):
     return skrci_levo(s[::-1])[::-1]
-
 
 class Matrika:
 
     def __init__(self,okno):
         self.slika = tk.Canvas(okno, bg='white',height=400,width =400)
         self.slika.place(relx=.01,rely=.15)
+
+        self.slika.create_text(100,10,fill="darkblue",font="Times 20 italic bold",
+                        text="Click the bubbles that are multiples of two.")
+        self.slika.find_all()
         self.nova_igra()
         okno.bind('<Left>',self.levi_klik)
         okno.bind('<Right>',self.desni_klik)
@@ -149,27 +149,74 @@ class Matrika:
         stevec = 0
         sestevek_tock.config(text = "sestevek: {}".format(stevec))
         self.osvezi()
+
         
     def levi_klik(self,event):
-        self.matrika = skrci_matriko(self.matrika,1)
-        self.matrika = dodaj_dve(self.matrika)
+        self.slika.create_text(0, 0, text='IZGUBILI STE!', font='arial 12')
+        self.slika.delete('all')
+        matrika2= skrci_matriko(self.matrika,1)
+        if matrika2 != self.matrika:
+            self.matrika=matrika2
+            self.matrika = dodaj_dve(self.matrika)
+        else:
+            stevilo_nicel=0
+            for i in range(4):
+                for j in range(4):
+                    if self.matrika[i][j] ==0:
+                        stevilo_nicel+= 1
+            if stevilo_nicel==0:
+                zapisi_rezultat()
+                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
         
     def desni_klik(self,event):
-        self.matrika = skrci_matriko(self.matrika,2)
-        self.matrika = dodaj_dve(self.matrika)
+        matrika2= skrci_matriko(self.matrika,2)
+        if matrika2 != self.matrika:
+            self.matrika=matrika2
+            self.matrika = dodaj_dve(self.matrika)
+        else:
+            stevilo_nicel=0
+            for i in range(4):
+                for j in range(4):
+                    if self.matrika[i][j] ==0:
+                        stevilo_nicel+= 1
+            if stevilo_nicel==0:
+                zapisi_rezultat()
+                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
         
     def gor_klik(self,event):
-        self.matrika = skrci_matriko(self.matrika,3)
-        self.matrika = dodaj_dve(self.matrika)
+        matrika2= skrci_matriko(self.matrika,3)
+        if matrika2 != self.matrika:
+            self.matrika=matrika2
+            self.matrika = dodaj_dve(self.matrika)
+        else:
+            stevilo_nicel=0
+            for i in range(4):
+                for j in range(4):
+                    if self.matrika[i][j] ==0:
+                        stevilo_nicel+= 1
+            if stevilo_nicel==0:
+                zapisi_rezultat()
+                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
-        
-        
+
     def dol_klik(self,event):
-        self.matrika = skrci_matriko(self.matrika,4)
-        self.matrika = dodaj_dve(self.matrika)
+        matrika2= skrci_matriko(self.matrika,4)
+        if matrika2 != self.matrika:
+            self.matrika=matrika2
+            self.matrika = dodaj_dve(self.matrika)
+        else:
+            stevilo_nicel=0
+            for i in range(4):
+                for j in range(4):
+                    if self.matrika[i][j] ==0:
+                        stevilo_nicel+= 1
+            if stevilo_nicel==0:
+                zapisi_rezultat()
+                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
+
 
 
 okno = tk.Tk()
@@ -177,15 +224,16 @@ gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
 ime_igre.place(relx=.02,rely=.01)
 sestevek_tock = tk.Label(okno, text ='sestevek: {}'.format(stevec), font='arial 12')
-sestevek_tock.place(relx=.7,rely=.01)    
+sestevek_tock.place(relx=.7,rely=.01)
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
 gumb_nova_igra.place(relx=.02,rely=.09)
-gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ' + preberi_najboljsi_rezultat(),font='arial 12')
-gumb_najboljsi_rezultat.place(relx=.55,rely=.09)
+gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ' + preberi_najboljsi_rezultat())
+gumb_najboljsi_rezultat.place(relx=.6,rely=.09)
 stanje = tk.Label(okno, text ='', font='arial 18')
 stanje.place(relx=.25 ,rely=.02)
 okno.title("2048")
 
 okno.geometry('{}x{}'.format(410, 500))
 okno.mainloop()
+        
