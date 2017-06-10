@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 import random
 
 stevec = 0
@@ -64,6 +64,22 @@ def skrci_levo_brez_nicel(s):
         sestevek_tock.config(text = "sestevek: {}".format(stevec))
         return [res] + skrci_levo_brez_nicel(s[2:])
 
+def zapisi_rezultat():
+    f = open('rezultati.txt', 'a')
+    f.write(',' + str(stevec))
+    f.close()
+def preberi_najboljsi_rezultat():
+    tabela = []
+    with open('rezultati.txt', 'r') as f:
+        for line in f:
+            for word in line.split(','):
+                tabela.append(int(word))
+    max = 0
+    for i in range(len(tabela)):
+        if max < tabela[i]:
+            max = tabela[i]
+    return str(max)
+
 def skrci_levo(s):
     seznam =[]
     for i in s:
@@ -74,6 +90,7 @@ def skrci_levo(s):
 
 def skrci_desno(s):
     return skrci_levo(s[::-1])[::-1]
+
 
 class Matrika:
 
@@ -202,12 +219,11 @@ sestevek_tock.place(relx=.7,rely=.01)
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
 gumb_nova_igra.place(relx=.02,rely=.09)
-gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ')
+gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ' + preberi_najboljsi_rezultat())
 gumb_najboljsi_rezultat.place(relx=.6,rely=.09)
 stanje = tk.Label(okno, text ='', font='arial 18')
 stanje.place(relx=.25 ,rely=.02)
 okno.title("2048")
 
 okno.geometry('{}x{}'.format(410, 500))
-okno.mainloop()
-        
+okno.mainloop()     
