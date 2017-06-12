@@ -68,6 +68,7 @@ def zapisi_rezultat():
     f = open('rezultati.txt', 'a')
     f.write(',' + str(stevec))
     f.close()
+    
 def preberi_najboljsi_rezultat():
     tabela = []
     with open('rezultati.txt', 'r') as f:
@@ -79,6 +80,7 @@ def preberi_najboljsi_rezultat():
         if max < tabela[i]:
             max = tabela[i]
     return str(max)
+
 def skrci_levo(s):
     seznam =[]
     for i in s:
@@ -152,8 +154,6 @@ class Matrika:
 
         
     def levi_klik(self,event):
-        self.slika.create_text(0, 0, text='IZGUBILI STE!', font='arial 12')
-        self.slika.delete('all')
         matrika2= skrci_matriko(self.matrika,1)
         if matrika2 != self.matrika:
             self.matrika=matrika2
@@ -165,7 +165,6 @@ class Matrika:
                     if self.matrika[i][j] ==0:
                         stevilo_nicel+= 1
             if stevilo_nicel==0:
-                zapisi_rezultat()
                 self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
         
@@ -181,7 +180,6 @@ class Matrika:
                     if self.matrika[i][j] ==0:
                         stevilo_nicel+= 1
             if stevilo_nicel==0:
-                zapisi_rezultat()
                 self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
         
@@ -197,10 +195,9 @@ class Matrika:
                     if self.matrika[i][j] ==0:
                         stevilo_nicel+= 1
             if stevilo_nicel==0:
-                zapisi_rezultat()
                 self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
         self.osvezi()
-
+        
     def dol_klik(self,event):
         matrika2= skrci_matriko(self.matrika,4)
         if matrika2 != self.matrika:
@@ -213,12 +210,12 @@ class Matrika:
                     if self.matrika[i][j] ==0:
                         stevilo_nicel+= 1
             if stevilo_nicel==0:
-                zapisi_rezultat()
                 self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
-        self.osvezi()
+        self.osvezi()   
 
-
-
+        
+            
+            
 okno = tk.Tk()
 gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
