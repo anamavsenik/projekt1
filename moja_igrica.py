@@ -1,4 +1,4 @@
-import Tkinter as tk
+import tkinter as tk
 import random
 
 stevec = 0
@@ -133,7 +133,7 @@ class Matrika:
                 self.narisi_polje(i,j)
                 
     def narisi_polje(self,i,j):
-        barve = ['peach puff','hot pink','deep pink','medium orchid', 'dark violet','seashell4','bisque4','cornflower blue','deep sky blue', 'blue','cyan']
+        barve = ['peach puff','hot pink','deep pink','medium orchid', 'dark violet','seashell4','bisque4','cornflower blue','deep sky blue', 'blue','cyan','green2','chartreause4','darkgoldenrod4','brown4','plum4']
         stevilo = self.matrika[i][j]
         if stevilo==2:
             barva = barve[0]
@@ -157,6 +157,16 @@ class Matrika:
             barva = barve[9]
         elif stevilo==2048:
             barva = barve[10]
+        elif stevilo==4096:
+            barva = barve[11]
+        elif stevilo==8192:
+            barva = barve[12]
+        elif stevilo==16384:
+            barva = barve[13]
+        elif stevilo==32768:
+            barva = barve[14]
+        elif stevilo==65536:
+            barva = barve[15]
         if stevilo != 0:
             self.slika.create_polygon(100*j+5,100*i+5,100*(j+1)-5,100*i+5,100*(j+1)-5,100*(i+1)-5,100*j+5,100*(i+1)-5,fill=barva)
             self.slika.create_text(j*100+50,i*100+50,text=str(stevilo),font='arial 20')
