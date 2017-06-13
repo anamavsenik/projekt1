@@ -64,6 +64,24 @@ def skrci_levo_brez_nicel(s):
         sestevek_tock.config(text = "sestevek: {}".format(stevec))
         return [res] + skrci_levo_brez_nicel(s[2:])
 
+def preverjaj_konec_igre(matrika):
+    global sestevek_tock
+    global stevec
+
+    for j in range(0,4):
+        if matrika[0][j] == matrika[1][j] or matrika[1][j]==matrika[2][j] or matrika[2][j]==matrika[3][j]:
+            return False
+        else:
+            matrika=transponiraj(matrika)
+            if matrika[0][j] == matrika[1][j] or matrika[1][j]==matrika[2][j] or matrika[2][j]==matrika[3][j]:
+                return False
+    for j in range(0,4):
+        for i in range(0,4):
+            if matrika[i][j] == 0:
+               return False
+    sestevek_tock.config(text = "KONEC IGRE! Zbral si {} tock!".format(stevec))
+    return True  
+
 def zapisi_rezultat():
     f = open('rezultati.txt', 'a')
     f.write(',' + str(stevec))
@@ -87,7 +105,8 @@ def skrci_levo(s):
         if i !=0:
             seznam.append(i)
     seznam = skrci_levo_brez_nicel(seznam)
-    return seznam + [0]*(len(s)-len(seznam)) 
+    seznam = seznam + [0]*(len(s)-len(seznam))
+    return seznam
 
 def skrci_desno(s):
     return skrci_levo(s[::-1])[::-1]
@@ -155,78 +174,61 @@ class Matrika:
         
     def levi_klik(self,event):
         matrika2= skrci_matriko(self.matrika,1)
+        if preverjaj_konec_igre(matrika2) == True:
+            print('Konec')
         if matrika2 != self.matrika:
             self.matrika=matrika2
             self.matrika = dodaj_dve(self.matrika)
         else:
-            stevilo_nicel=0
-            for i in range(4):
-                for j in range(4):
-                    if self.matrika[i][j] ==0:
-                        stevilo_nicel+= 1
-            if stevilo_nicel==0:
-                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
+            matrika2=self.matrika
         self.osvezi()
         
     def desni_klik(self,event):
         matrika2= skrci_matriko(self.matrika,2)
+        if preverjaj_konec_igre(matrika2) == True:
+            print('Konec')
         if matrika2 != self.matrika:
             self.matrika=matrika2
             self.matrika = dodaj_dve(self.matrika)
         else:
-            stevilo_nicel=0
-            for i in range(4):
-                for j in range(4):
-                    if self.matrika[i][j] ==0:
-                        stevilo_nicel+= 1
-            if stevilo_nicel==0:
-                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
+            matrika2=self.matrika
         self.osvezi()
         
     def gor_klik(self,event):
         matrika2= skrci_matriko(self.matrika,3)
+        if preverjaj_konec_igre(matrika2) == True:
+            print('Konec')
         if matrika2 != self.matrika:
             self.matrika=matrika2
             self.matrika = dodaj_dve(self.matrika)
         else:
-            stevilo_nicel=0
-            for i in range(4):
-                for j in range(4):
-                    if self.matrika[i][j] ==0:
-                        stevilo_nicel+= 1
-            if stevilo_nicel==0:
-                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
+            matrika2=self.matrika
         self.osvezi()
         
     def dol_klik(self,event):
         matrika2= skrci_matriko(self.matrika,4)
+        if preverjaj_konec_igre(matrika2) == True:
+            print('Konec')
         if matrika2 != self.matrika:
             self.matrika=matrika2
             self.matrika = dodaj_dve(self.matrika)
         else:
-            stevilo_nicel=0
-            for i in range(4):
-                for j in range(4):
-                    if self.matrika[i][j] ==0:
-                        stevilo_nicel+= 1
-            if stevilo_nicel==0:
-                self.slika.create_text(100,100,text='IZGUBILI STE!',font='arial 30')
-        self.osvezi()   
+            matrika2=self.matrika
+        self.osvezi()
 
-        
             
             
 okno = tk.Tk()
 gumbi= tk.Frame(okno)
 ime_igre = tk.Label(okno, text = '2048',font='arial 20')
 ime_igre.place(relx=.02,rely=.01)
-sestevek_tock = tk.Label(okno, text ='sestevek: {}'.format(stevec), font='arial 12')
-sestevek_tock.place(relx=.7,rely=.01)
+sestevek_tock = tk.Label(okno, text ='sestevek: {}'.format(stevec), font='arial 13')
+sestevek_tock.place(relx=.3,rely=.01)
 matrika = Matrika(okno)
 gumb_nova_igra = tk.Button(okno,text = 'Nova igra',command = matrika.nova_igra)
 gumb_nova_igra.place(relx=.02,rely=.09)
-gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ' + preberi_najboljsi_rezultat())
-gumb_najboljsi_rezultat.place(relx=.6,rely=.09)
+gumb_najboljsi_rezultat = tk.Label(okno,text = 'Najboljsi rezultat : ' + preberi_najboljsi_rezultat(),font='arial 12')
+gumb_najboljsi_rezultat.place(relx=.3,rely=.09)
 stanje = tk.Label(okno, text ='', font='arial 18')
 stanje.place(relx=.25 ,rely=.02)
 okno.title("2048")
