@@ -1,4 +1,4 @@
-import tkinter as tk
+import Tkinter as tk
 import random
 
 stevec = 0
@@ -116,9 +116,7 @@ class Matrika:
     def __init__(self,okno):
         self.slika = tk.Canvas(okno, bg='white',height=400,width =400)
         self.slika.place(relx=.01,rely=.15)
-
         
-        self.slika.find_all()
         self.nova_igra()
         okno.bind('<Left>',self.levi_klik)
         okno.bind('<Right>',self.desni_klik)
